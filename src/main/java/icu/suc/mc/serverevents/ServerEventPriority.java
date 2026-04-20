@@ -41,8 +41,6 @@ import org.jetbrains.annotations.ApiStatus;
  *
  * <p>Outside of {@code ServerEvents.*}, these priorities do not have intrinsic
  * meaning unless explicitly integrated into the event dispatching logic.</p>
- *
- * @since 2.1.0
  */
 public final class ServerEventPriority {
     @ApiStatus.Internal

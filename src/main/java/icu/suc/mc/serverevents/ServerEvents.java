@@ -45,8 +45,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static net.fabricmc.fabric.api.event.Event.DEFAULT_PHASE;
-
 public final class ServerEvents {
     private ServerEvents() {
     }
@@ -57,13 +55,23 @@ public final class ServerEvents {
     public static final String ID = "serverevents";
 
     /**
+     * Registers the given listener.
+     *
+     * @see ServerEvents#register(Identifier, Object, Event[])
+     * @param listener the listener to register
+     */
+    public static void register(@NotNull Listener listener) {
+        register(listener.phase(), listener, listener.events());
+    }
+
+    /**
      * Registers the given listener to one or more events using the default phase.
      *
      * <p>The {@code listener} object must implement the interface or class represented
      * by each {@code event}'s type parameter {@code T}. Passing an incompatible object
      * will throw a {@link ClassCastException} at runtime.</p>
      *
-     * <p>This variant uses {@link net.fabricmc.fabric.api.event.Event#DEFAULT_PHASE} as the
+     * <p>This variant uses {@link Event#DEFAULT_PHASE} as the
      * registration phase.</p>
      *
      * @param listener the object to register; must implement each event's type parameter {@code T}
@@ -72,7 +80,7 @@ public final class ServerEvents {
      */
     @SafeVarargs
     public static <T> void register(@NotNull Object listener, Event<? extends T> @NotNull ... events) {
-        register(DEFAULT_PHASE, listener, events);
+        register(Event.DEFAULT_PHASE, listener, events);
     }
 
     /**

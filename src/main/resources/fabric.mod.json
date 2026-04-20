@@ -27,5 +27,12 @@
     "fabricloader": ">=${loader}",
     "fabric-api": ">=${api}",
     "minecraft": ">=${minecraft}"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [
+        "library"
+      ]
+    }
   }
 }

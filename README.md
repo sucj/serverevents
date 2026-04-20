@@ -29,7 +29,7 @@ Since `2.0.0`, the **groupId** has been changed from `icu.suc` to `icu.suc.mc`.
 ## Usage
 **ServerEvents** provides a simple API for registering and processing events.
 
-Here is an example of a player modifying broadcast information and giving an apple when joining:
+Here is an example of a player modifying broadcast information:
 
 ```java
 import net.fabricmc.api.ModInitializer;
@@ -40,13 +40,40 @@ import icu.suc.mc.serverevents.ServerEvents;
 public class ExampleMod implements ModInitializer {
     @Override
     public void onInitialize() {
-        ServerEvents.Player.MODIFY_JOIN_MESSAGE.register((player, message) -> {
-            player.getInventory().add(Items.APPLE.getDefaultInstance());
-            return Component.literal("[+] ").append(player.getName());
-        });
+        ServerEvents.Player.MODIFY_JOIN_MESSAGE.register((player, message) ->
+                Component.literal("[+] ").append(player.getName()));
     }
 }
-``` 
+```
+
+Since `2.2.0`:
+
+```java
+import icu.suc.mc.serverevents.Listener;
+import icu.suc.mc.serverevents.ServerEvents;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.Event;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import org.jetbrains.annotations.NotNull;
+
+public class ExampleMod implements ModInitializer, Listener, ServerEvents.Player.Join.ModifyMessage {
+    @Override
+    public void onInitialize() {
+        ServerEvents.register(this);
+    }
+
+    @Override
+    public @NotNull Event<?>[] events() {
+        return new Event[]{ServerEvents.Player.Join.MODIFY_MESSAGE};
+    }
+
+    @Override
+    public @NotNull Component modifyJoinMessage(@NotNull ServerPlayer player, @NotNull Component message) {
+        return Component.literal("[+] ").append(player.getName());
+    }
+}
+```
 
 ## License
 
