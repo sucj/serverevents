@@ -33,11 +33,6 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.Modifier;
 
 public final class Main implements ModInitializer {
-    @Override
-    public void onInitialize() {
-        addPhaseOrdering(ServerEvents.class, ServerEventPriority.PRIORITIES);
-    }
-
     private static void addPhaseOrdering(@NotNull Class<?> clazz, Identifier[] priorities) {
         for (var field : clazz.getDeclaredFields()) {
             if (!Modifier.isStatic(field.getModifiers())) continue;
@@ -61,6 +56,13 @@ public final class Main implements ModInitializer {
             if (!Modifier.isStatic(nested.getModifiers())) continue;
 
             addPhaseOrdering(nested, priorities);
+        }
+    }
+
+    @Override
+    public void onInitialize() {
+        if (System.getProperty("serverevents.disableeventpriority") == null) {
+            addPhaseOrdering(ServerEvents.class, ServerEventPriority.PRIORITIES);
         }
     }
 }
