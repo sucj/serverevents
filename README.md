@@ -5,6 +5,7 @@
 [![GitHub Release](https://img.shields.io/github/v/release/sucj/serverevents?include_prereleases)](https://github.com/sucj/serverevents/releases/latest)
 
 [![Modrinth Downloads](https://img.shields.io/modrinth/dt/serverevents?logo=modrinth)](https://modrinth.com/project/hykUQTdx)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/1642821?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/serverevents)
 
 **Server Events** is a support library for Fabric server development, designed to enhance the Fabric API's limited event system. It offers a Bukkit-like event framework while adhering to Fabric's minimalist philosophy.
 
